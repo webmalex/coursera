@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+  notebook:
+    build: .
+    image: nb
+    container_name: nb
+    volumes:
+     - ".:/home/jovyan/work"
+     # - "work:/home/jovyan/work"
+    ports:
+      - "80:8888"
+
+# volumes:
+#   work:
+#     external:
+#       name: ${WORK_VOLUME}
