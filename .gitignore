@@ -1,3 +1,5 @@
 *.csv
 R/.ipynb_checkpoints
 ml2-supervised-learning/w1-linieinyie-modieli-v-zadachakh-rieghriessii/.ipynb_checkpoints
+*.txt
+*.pyc
