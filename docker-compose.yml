@@ -10,6 +10,8 @@ services:
      # - "work:/home/jovyan/work"
     ports:
       - "80:8888"
+    restart: always
+
 
 # volumes:
 #   work:
