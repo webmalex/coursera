@@ -1,3 +1,6 @@
 [submodule "ml1"]
 	path = ml1
 	url = /Users/malex/project/coursera/ml1
+[submodule "test/bokeh-blaze-tutorial"]
+	path = test/bokeh-blaze-tutorial
+	url = https://github.com/ijstokes/bokeh-blaze-tutorial

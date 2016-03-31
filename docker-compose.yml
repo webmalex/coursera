@@ -2,8 +2,9 @@ version: "2"
 
 services:
   notebook:
-    # build: .
-    image: jupyter/datascience-notebook
+    build: .
+    image: nb
+    # image: jupyter/datascience-notebook
     container_name: nb
     volumes:
      - ".:/home/jovyan/work"
