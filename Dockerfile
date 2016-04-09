@@ -6,6 +6,7 @@ USER jovyan
 # e.g., RUN pip install jupyter_dashboards
 RUN conda install bokeh 
 # RUN $CONDA_DIR/envs/python2/bin/pip install pandas-summary
+COPY jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 
 USER root
 
