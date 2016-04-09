@@ -7,6 +7,8 @@ USER jovyan
 RUN conda install bokeh 
 # RUN $CONDA_DIR/envs/python2/bin/pip install pandas-summary
 COPY jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
+RUN mkdir -p ~/.local/share/jupyter
+RUN pip install https://github.com/ipython-contrib/IPython-notebook-extensions/archive/master.zip --user
 
 USER root
 
