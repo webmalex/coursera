@@ -4,3 +4,6 @@
 [submodule "test/bokeh-blaze-tutorial"]
 	path = test/bokeh-blaze-tutorial
 	url = https://github.com/ijstokes/bokeh-blaze-tutorial
+[submodule "ml4-DL"]
+	path = ml4-DL
+	url = https://webmalex@github.com/webmalex/ml4-DL.git
