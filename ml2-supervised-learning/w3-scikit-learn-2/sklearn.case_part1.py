@@ -185,6 +185,11 @@ test_data.head()
 regressor = linear_model.SGDRegressor(random_state = 0)
 
 
+# In[55]:
+
+regressor.get_params()
+
+
 # In[23]:
 
 regressor.fit(train_data, train_labels)

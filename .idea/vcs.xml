@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ml1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ml4-DL" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ml4-DL/LevinJ" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/test/bokeh-blaze-tutorial" vcs="Git" />
+  </component>
+</project>

@@ -294,6 +294,15 @@ def fit(x_train, x_test, class_weight=None):
     print(auc)
     return auc
 
+def fit5(xl, xt, yl, yt, class_weight=None, fit_intercept=True, penalty='l2'):
+    optimizer = GridSearchCV(LogisticRegression(penalty=penalty, fit_intercept=fit_intercept, class_weight=class_weight), param_grid, cv=cv)
+    optimizer.fit(xl, yl)
+    plot_scores(optimizer)
+    print(optimizer.best_params_)
+    auc = roc_auc_score(yt, optimizer.predict(xt))
+    print(auc)
+    return auc, optimizer 
+
 
 # In[17]:
 
@@ -356,7 +365,7 @@ pd.DataFrame(X_train_real_scaled).round(2).describe()
 
 # Построим такие же графики для преобразованных данных:
 
-# In[21]:
+# In[33]:
 
 data_numeric_scaled = pd.DataFrame(X_train_real_scaled, columns=numeric_cols)
 list_cols = ['Number.of.Successful.Grant.1', 'SEO.Percentage.2', 'Year.of.Birth.1']
@@ -372,7 +381,7 @@ plt.show()
 # 3. Получите значение ROC AUC на тестовой выборке, сравните с лучшим результатом, полученными ранее.
 # 4. Запишите полученный ответ в файл при помощи функции write_answer_2.
 
-# In[22]:
+# In[34]:
 
 def write_answer_2(auc):
     with open("preprocessing_lr_answer2.txt", "w") as fout:
@@ -388,7 +397,7 @@ auc_3 - auc_2
 
 # Алгоритмы классификации могут быть очень чувствительны к несбалансированным классам. Рассмотрим пример с выборками, сэмплированными из двух гауссиан. Их мат. ожидания и матрицы ковариации заданы так, что истинная разделяющая поверхность должна проходить параллельно оси x. Поместим в обучающую выборку 20 объектов, сэмплированных из 1-й гауссианы, и 10 объектов из 2-й. После этого обучим на них линейную регрессию, и построим на графиках объекты и области классификации.
 
-# In[23]:
+# In[ ]:
 
 np.random.seed(0)
 """Сэмплируем данные из первой гауссианы"""
@@ -433,7 +442,7 @@ print('AUC: %f'%auc_w_class_weights)
 # 
 # Посмотрим, сбалансированны ли классы в нашей обучающей выборке:
 
-# In[24]:
+# In[35]:
 
 print(np.sum(y_train==0))
 print(np.sum(y_train==1))
@@ -454,7 +463,7 @@ print(np.sum(y_train==1))
 # 4. Получите метрику ROC AUC на тестовой выборке, сравните с предыдущим результатом.
 # 5. Внесите ответы в выходной файл при помощи функции write_asnwer_3, передав в неё сначала ROC AUC для балансировки весами, а потом балансировки выборки вручную.
 
-# In[25]:
+# In[36]:
 
 def write_answer_3(auc_1, auc_2):
     answers = [auc_1, auc_2]
@@ -465,20 +474,27 @@ def write_answer_3(auc_1, auc_2):
 get_ipython().magic("time auc_4 = fit(X_train_real_scaled, X_test_real_scaled, class_weight='balanced')")
 
 
-# In[27]:
+# In[37]:
 
-get_ipython().run_cell_magic('time', '', 'def fit2():\n    np.random.seed(0)\n    size = np.sum(y_train==0) - np.sum(y_train==1) \n    y_train = np.array(y_train)\n    indices_to_add = np.random.randint(np.sum(y_train==1), size=size)\n    X_train = np.hstack((X_train_real_scaled, X_train_cat_oh))\n    X_train_to_add = X_train[y_train == 1,:][indices_to_add,:]\n    y_train_to_add = np.repeat(1, size).T\n    X_train_ext = np.vstack((X_train, X_train_to_add))\n    y_train_ext = np.hstack((y_train, y_train_to_add))\n#     estimator = LogisticRegression()\n#     optimizer = GridSearchCV(estimator = estimator, param_grid = param_grid, cv = cv, n_jobs=-1)\n#     optimizer.fit(X_train_ext, y_train_ext)\n#     y_pred = optimizer.predict(X_test)\n#     plot_scores(optimizer)\n#     print(optimizer.best_params_)\n#     auc = roc_auc_score(y_test, y_pred)\n#     print(auc)\n#     return auc\n# %time auc_5 = fit2()\n\ndef fit4(xl1, xt1, xl2, xt2, yl, yt, class_weight=None):\n    optimizer = GridSearchCV(LogisticRegression(class_weight=class_weight), param_grid, cv=cv)\n    optimizer.fit(np.hstack((np.array(xl1), xl2)), yl)\n    plot_scores(optimizer)\n    print(optimizer.best_params_)\n    auc = roc_auc_score(yt, optimizer.predict(np.hstack((np.array(xt1), xt2))))\n    print(auc)\n    return auc\n\ndef trans1():\n    np.random.seed(0)\n    y_train = np.array(y_train)\n    size = np.sum(y_train==0) - np.sum(y_train==1) \n    indices_to_add = np.random.randint(np.sum(y_train==1), size=size)\n    X_train = np.hstack((X_train_real_scaled, X_train_cat_oh))\n    X_train_to_add = X_train[y_train == 1,:][indices_to_add,:]\n    y_train_to_add = np.repeat(1, size).T\n    xl1 = np.vstack((X_train, X_train_to_add))\n    yl = np.hstack((y_train, y_train_to_add))\n(xl1, xt1, xl2, xt2, yl) = trans1()  \nauc_5 = fit4(xl1, xt1, xl2, xt2, yl, y_test)\n')
+def hs(x1, x2): return np.hstack((np.array(x1), x2))
+
+def fit4(xl, xt, yl, yt, class_weight=None, fit_intercept=True):
+    optimizer = GridSearchCV(LogisticRegression(fit_intercept=fit_intercept, class_weight=class_weight), param_grid, cv=cv)
+    optimizer.fit(xl, yl)
+    plot_scores(optimizer)
+    print(optimizer.best_params_)
+    auc = roc_auc_score(yt, optimizer.predict(xt))
+    print(auc)
+    return auc
 
 
 # In[ ]:
 
-get_ipython().run_cell_magic('html', '', '<h1>')
+get_ipython().run_cell_magic('time', '', 'np.random.seed(0)\nsize = np.sum(y_train==0) - np.sum(y_train==1) \nX_train = hs(X_train_real_scaled, X_train_cat_oh)\nindices_to_add = np.random.randint(np.sum(y_train==1), size=size)\nX_train_to_add = X_train[y_train.as_matrix() == 1,:][indices_to_add, :]\nxl = np.vstack((X_train, X_train_to_add))\nyl = hs(y_train, np.repeat(1, size).T)\nxt = hs(X_test_real_scaled, X_test_cat_oh)\n\nauc_5 = fit4(xl, xt, yl, y_test)\nwrite_answer_3(auc_4, auc_5)\nprint(auc_5 - auc_4)')
 
 
 # In[ ]:
 
-write_answer_3(auc_4, auc_5)
-print(auc_5 - auc_4)
 sorted(zip([auc_1, auc_2, auc_3, auc_4, auc_5],[1,2,3,4,5]))
 
 
@@ -532,27 +548,26 @@ print('AUC ROC for stratified samples: ', auc_stratified)
 def write_answer_4(auc):
     with open("preprocessing_lr_answer4.txt", "w") as fout:
         fout.write(str(auc))
-
-# place your code here
-def fit4(xl1, xt1, xl2, xt2, yl, yt, class_weight=None):
-    optimizer = GridSearchCV(LogisticRegression(class_weight=class_weight), param_grid, cv=cv)
-    optimizer.fit(np.hstack((np.array(xl1), xl2)), yl)
-    plot_scores(optimizer)
-    print(optimizer.best_params_)
-    auc = roc_auc_score(yt, optimizer.predict(np.hstack((np.array(xt1), xt2))))
-    print(auc)
-    return auc
-# tts = lambda x: train_test_split(x, test_size=0.3, random_state=0, stratify=y) 
-ka = {'test_size':0.3, 'random_state':0, 'stratify':y}
-(xl1, xt1, yl, yt) = train_test_split(X_real_zeros, y, **ka)
-(xl2, xt2) = train_test_split(X_cat_oh, **ka)
-get_ipython().magic('time auc_6 = fit4(xl1, xt1, xl2, xt2, yl, yt)')
+    
+# разбить
+# StandardScaler
+# 3. np.concatenate((X_train_real_scaled,X_train_cat_oh),axis=1)
+# 4. roc_auc_zero = get_roc_auc(X_z_train,y_train,X_z_test,y_test,'balanced')
 
 
 # In[ ]:
 
+ka = {'test_size':0.3, 'random_state':0, 'stratify':y}
+(xl1, xt1, yl, yt) = train_test_split(X_real_zeros, y, **ka)
+(xl2, xt2) = train_test_split(X_cat_oh, **ka)
+get_ipython().magic("time (auc_6,) = fit5(hs(scaler.fit_transform(xl1), xl2), hs(scaler.transform(xt1), xt2), yl, yt, class_weight='balanced')")
 write_answer_4(auc_6)
+
+
+# In[ ]:
+
 sorted(zip([auc_1, auc_2, auc_3, auc_4, auc_5, auc_6],[1,2,3,4,5,6]))
+# [auc_1, auc_2, auc_3, auc_4, auc_5, auc_6]
 
 
 # Теперь вы разобрались с основными этапами предобработки данных для линейных классификаторов.
@@ -633,11 +648,12 @@ print(example_data_train_poly.shape)
 
 # In[ ]:
 
-def write_answer_5(auc):
-    with open("preprocessing_lr_answer5.txt", "w") as fout:
-        fout.write(str(auc))
-        
-# place your code here
+get_ipython().run_cell_magic('time', '', 'def write_answer_5(auc):\n    with open("preprocessing_lr_answer5.txt", "w") as fout:\n        fout.write(str(auc))\n        \n# place your code here\ntransform = PolynomialFeatures(2)\nxl = hs(scaler.fit_transform(transform.fit_transform(X_train_real_scaled)), xl2)\nxt = hs(scaler.transform(transform.transform(X_test_real_scaled)), xt2)\nauc_7 = fit4(xl, xt, yl, yt, class_weight=\'balanced\', fit_intercept=False)\nwrite_answer_5(auc_7)')
+
+
+# In[ ]:
+
+sorted(zip([auc_1, auc_2, auc_3, auc_4, auc_5, auc_6, auc_7],[1,2,3,4,5,6,7]))
 
 
 # ## Регрессия Lasso.
@@ -651,9 +667,23 @@ def write_answer_5(auc):
 
 # In[ ]:
 
+get_ipython().run_cell_magic('time', '', "xl = hs(scaler.fit_transform(X_train_real_scaled), xl2)\nxt = hs(scaler.transform(X_test_real_scaled), xt2)\n(auc_8, optimizer) = fit5(xl, xt, yl, yt, class_weight='balanced', penalty='l1')")
+
+
+# In[ ]:
+
 def write_answer_6(features):
     with open("preprocessing_lr_answer6.txt", "w") as fout:
         fout.write(" ".join([str(num) for num in features]))
-        
-# place your code here
+sorted(zip([auc_1, auc_2, auc_3, auc_4, auc_5, auc_6, auc_7, auc_8],[1,2,3,4,5,6,7,8]))
+
+
+# In[ ]:
+
+c = optimizer.best_estimator_.coef_[0]
+
+
+# In[ ]:
+
+write_answer_6(np.where(c == 0)[0])
 

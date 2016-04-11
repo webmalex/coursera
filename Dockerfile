@@ -11,6 +11,7 @@ RUN mkdir -p ~/.local/share/jupyter
 RUN pip install https://github.com/ipython-contrib/IPython-notebook-extensions/archive/master.zip --user
 
 USER root
+EXPOSE 8000
 
 # Add permanent apt-get installs and other root commands here
 # e.g., RUN apt-get install npm nodejs
