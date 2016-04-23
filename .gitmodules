@@ -4,3 +4,6 @@
 [submodule "stepic-NN/w2-assignment"]
 	path = stepic-NN/w2-assignment
 	url = https://github.com/webmalex/stepic_neural_networks_public
+[submodule "test/scipy2015-blaze-bokeh"]
+	path = test/scipy2015-blaze-bokeh
+	url = https://github.com/chdoig/scipy2015-blaze-bokeh
