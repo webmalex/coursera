@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>TextsClusteringExample</title>
+<title>w1-as2-razmieshchieniie-bannierov</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -171,1533 +171,22 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#1055;&#1088;&#1080;&#1084;&#1077;&#1088;:-&#1082;&#1083;&#1072;&#1089;&#1090;&#1077;&#1088;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103;-&#1090;&#1077;&#1082;&#1089;&#1090;&#1086;&#1074;">&#1055;&#1088;&#1080;&#1084;&#1077;&#1088;: &#1082;&#1083;&#1072;&#1089;&#1090;&#1077;&#1088;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103; &#1090;&#1077;&#1082;&#1089;&#1090;&#1086;&#1074;<a class="anchor-link" href="#&#1055;&#1088;&#1080;&#1084;&#1077;&#1088;:-&#1082;&#1083;&#1072;&#1089;&#1090;&#1077;&#1088;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103;-&#1090;&#1077;&#1082;&#1089;&#1090;&#1086;&#1074;">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#1042;&#1099;&#1073;&#1086;&#1088;&#1082;&#1072;">&#1042;&#1099;&#1073;&#1086;&#1088;&#1082;&#1072;<a class="anchor-link" href="#&#1042;&#1099;&#1073;&#1086;&#1088;&#1082;&#1072;">&#182;</a></h2>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[74]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%%</span><span class="k">time</span>
-from sklearn.datasets import fetch_20newsgroups
-
-train_all = fetch_20newsgroups(subset=&#39;train&#39;)
-print train_all.target_names
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">read_csv</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="k">import</span> <span class="n">MeanShift</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">StringIO</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../..&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">lib</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[&apos;alt.atheism&apos;, &apos;comp.graphics&apos;, &apos;comp.os.ms-windows.misc&apos;, &apos;comp.sys.ibm.pc.hardware&apos;, &apos;comp.sys.mac.hardware&apos;, &apos;comp.windows.x&apos;, &apos;misc.forsale&apos;, &apos;rec.autos&apos;, &apos;rec.motorcycles&apos;, &apos;rec.sport.baseball&apos;, &apos;rec.sport.hockey&apos;, &apos;sci.crypt&apos;, &apos;sci.electronics&apos;, &apos;sci.med&apos;, &apos;sci.space&apos;, &apos;soc.religion.christian&apos;, &apos;talk.politics.guns&apos;, &apos;talk.politics.mideast&apos;, &apos;talk.politics.misc&apos;, &apos;talk.religion.misc&apos;]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">simple_dataset</span> <span class="o">=</span> <span class="n">fetch_20newsgroups</span><span class="p">(</span>
-    <span class="n">subset</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> 
-    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;comp.sys.mac.hardware&#39;</span><span class="p">,</span> <span class="s1">&#39;soc.religion.christian&#39;</span><span class="p">,</span> <span class="s1">&#39;rec.sport.hockey&#39;</span><span class="p">])</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">simple_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>From: erik@cheshire.oxy.edu (Erik Adams)
-Subject: HELP!!  My Macintosh &quot;luggable&quot; has lines on its screen!
-Organization: Occidental College, Los Angeles, CA 90041 USA.
-Distribution: comp
-Lines: 20
-
-Okay, I don&apos;t use it very much, but I would like for it to keep working
-correctly, at least as long as Apple continues to make System software
-that will run on it, if slowly :-)
-
-Here is the problem:  When the screen is tilted too far back, vertical
-lines appear on the screen.  They are every 10 pixels or so, and seem
-to be affected somewhat by opening windows and pulling down menus.
-It looks to a semi-technical person like there is a loose connection
-between the screen and the rest of the computer.
-
-I am open to suggestions that do not involve buying a new computer,
-or taking this one to the shop.  I would also like to not have
-to buy one of Larry Pina&apos;s books.  I like Larry, but I&apos;m not sure
-I feel strongly enough about the computer to buy a service manual
-for it.
-
-On a related note:  what does the monitor connector connect to?
-
-Erik
-
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">simple_dataset</span><span class="o">.</span><span class="n">target</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([0, 0, 1, ..., 0, 1, 2])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">simple_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>From: dlecoint@garnet.acns.fsu.edu (Darius_Lecointe)
-Subject: Re: Sabbath Admissions 5of5
-Organization: Florida State University
-Lines: 21
-
-I find it interesting that cls never answered any of the questions posed. 
-Then he goes on the make statements which make me shudder.  He has
-established a two-tiered God.  One set of rules for the Jews (his people)
-and another set for the saved Gentiles (his people).  Why would God
-discriminate?  Does the Jew who accepts Jesus now have to live under the
-Gentile rules.
-
-God has one set of rules for all his people.  Paul was never against the
-law.  In fact he says repeatedly that faith establishes rather that annuls
-the law.  Paul&apos;s point is germane to both Jews and Greeks.  The Law can
-never be used as an instrument of salvation.  And please do not combine
-the ceremonial and moral laws in one.
-
-In Matt 5:14-19 Christ plainly says what He came to do and you say He was
-only saying that for the Jews&apos;s benefit.  Your Christ must be a
-politician, speaking from both sides of His mouth.  As Paul said, &quot;I have
-not so learned Christ.&quot;  Forget all the theology, just do what Jesus says.
- Your excuses will not hold up in a court of law on earth, far less in
-God&apos;s judgement hall.
-
-Darius
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">simple_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>From: scialdone@nssdca.gsfc.nasa.gov (John Scialdone)
-Subject: CUT Vukota and Pilon!!!
-News-Software: VAX/VMS VNEWS 1.41    
-Organization: NASA - Goddard Space Flight Center
-Lines: 32
-
-I have been to all 3 Isles/Caps tilts at the Crap Centre this year, all Isles
-wins and there is no justification for Vukota and Pilon to play for the Isles.
-Vukota is absolutely the worst puck handler in the world!! He couldn&apos;t hit a
-bull in the ass with a banjo!! Al must remember a few years back when Mick 
-scored 3 goals in one period against the Caps in a 5-3 Isles win. I was there
-and was astonished as was the rest of the crowd. Wake-up Al!!! Years later he&apos;s
-gotten worse. He&apos;s a cheap shot artist and always ends up getting
-stupid/senseless penalties. I think he would make a good police officier!!!
-
-As for Pilon, he can&apos;t carry the puck out to center ice by himself. He either
-makes a bad pass resulting in a turnover, or he attempts to bring the puck 
-towards the neutral zone and skates right into an opposing skater. He can&apos;t
-stay on his skates with most forwards or centers. He either falls down or 
-committs a penalty. Call up somebody from Capital District AL!!!!!
-
-As far as the playoffs, the Isles are as difficult to figure out as the Caps.
-Two good teams with talent but so inconsistent. They should meet in the first
-round. The Isles seem to play up to the level of their competition so they
-should play well against Jersey tonite. It&apos;ll probably be another tight 1-goal
-game as the last 20 games hve been for the Isles. I wish when the get a lead
-they could continue to pour it on instead of settling back into a defensive
-shell and letting the opposition get back in the game. Al MUST understand he
-can&apos;t do with this team what he did with the 80-83 Isles. maybe Al should got
-to. Where is Bobby Nystrom?? Clark Gilles?? John Tonelli?? These are the kind
-of young minds we need behing the bench!!    FIRE AL!!!!
-
-John Scialdone
-SCIALDONE@NSSDCA.GSFC.NASA.GOV
-
-**********When your ship comes in, first man takes the Sail********************
-
-
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">simple_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>1777
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#1055;&#1088;&#1080;&#1079;&#1085;&#1072;&#1082;&#1080;">&#1055;&#1088;&#1080;&#1079;&#1085;&#1072;&#1082;&#1080;<a class="anchor-link" href="#&#1055;&#1088;&#1080;&#1079;&#1085;&#1072;&#1082;&#1080;">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">TfidfVectorizer</span>
-
-<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">max_df</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">matrix</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">simple_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>(1777, 3767)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#1040;&#1075;&#1075;&#1083;&#1086;&#1084;&#1077;&#1088;&#1072;&#1090;&#1080;&#1074;&#1085;&#1072;&#1103;-&#1082;&#1083;&#1072;&#1089;&#1090;&#1077;&#1088;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103;-(neighbour-joining)">&#1040;&#1075;&#1075;&#1083;&#1086;&#1084;&#1077;&#1088;&#1072;&#1090;&#1080;&#1074;&#1085;&#1072;&#1103; &#1082;&#1083;&#1072;&#1089;&#1090;&#1077;&#1088;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103; (neighbour joining)<a class="anchor-link" href="#&#1040;&#1075;&#1075;&#1083;&#1086;&#1084;&#1077;&#1088;&#1072;&#1090;&#1080;&#1074;&#1085;&#1072;&#1103;-&#1082;&#1083;&#1072;&#1089;&#1090;&#1077;&#1088;&#1080;&#1079;&#1072;&#1094;&#1080;&#1103;-(neighbour-joining)">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%%</span><span class="k">time</span>
-from sklearn.cluster.hierarchical import AgglomerativeClustering
-
-model = AgglomerativeClustering(n_clusters=3, affinity=&#39;cosine&#39;, linkage=&#39;complete&#39;)
-preds = model.fit_predict(matrix.toarray())
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="nb">list</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>  (0, 877)	0.111806579628
-  (0, 880)	0.11851815596
-  (0, 2243)	0.0925317447412
-  (0, 1136)	0.0500506718781
-  (0, 2358)	0.0840797530073
-  (0, 2820)	0.108042909343
-  (0, 2108)	0.1235763517
-  (0, 3035)	0.101544778998
-  (0, 1229)	0.0736045063897
-  (0, 3262)	0.130212979504
-  (0, 1366)	0.0836339497399
-  (0, 3305)	0.0678317940862
-  (0, 551)	0.0978140030819
-  (0, 1961)	0.228859994985
-  (0, 619)	0.170473343334
-  (0, 294)	0.0517710627222
-  (0, 3322)	0.0953890204835
-  (0, 2325)	0.054192064708
-  (0, 620)	0.111806579628
-  (0, 1831)	0.125052646182
-  (0, 3285)	0.112645815931
-  (0, 2422)	0.0942723610696
-  (0, 301)	0.0556325669605
-  (0, 855)	0.201625540883
-  (0, 2868)	0.0859620897079
-  :	:
-  (0, 900)	0.1235763517
-  (0, 354)	0.0694743738355
-  (0, 2048)	0.0748844895603
-  (0, 1991)	0.0711302768586
-  (0, 926)	0.117420593185
-  (0, 3722)	0.0950102887763
-  (0, 1905)	0.0817353647899
-  (0, 2273)	0.0579600218377
-  (0, 3600)	0.0573701527992
-  (0, 3555)	0.0622908798771
-  (0, 2413)	0.102588780336
-  (0, 69)	0.0685826705273
-  (0, 838)	0.101544778998
-  (0, 1121)	0.0644281622922
-  (0, 3553)	0.0734668995949
-  (0, 625)	0.0520717390913
-  (0, 319)	0.100549353806
-  (0, 2056)	0.0961672074361
-  (0, 810)	0.0809427637022
-  (0, 2991)	0.389561083053
-  (0, 1846)	0.0674142631248
-  (0, 2082)	0.0965671776392
-  (0, 1659)	0.0722667093676
-  (0, 239)	0.0950102887763
-  (0, 1246)	0.390638938513
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[168]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[168]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[u&apos;00&apos;,
- u&apos;000&apos;,
- u&apos;01&apos;,
- u&apos;02&apos;,
- u&apos;03&apos;,
- u&apos;030&apos;,
- u&apos;0358&apos;,
- u&apos;04&apos;,
- u&apos;040&apos;,
- u&apos;05&apos;,
- u&apos;06&apos;,
- u&apos;07&apos;,
- u&apos;08&apos;,
- u&apos;09&apos;,
- u&apos;10&apos;,
- u&apos;100&apos;,
- u&apos;1000&apos;,
- u&apos;101&apos;,
- u&apos;102&apos;,
- u&apos;104&apos;,
- u&apos;105&apos;,
- u&apos;106&apos;,
- u&apos;109&apos;,
- u&apos;11&apos;,
- u&apos;110&apos;,
- u&apos;112&apos;,
- u&apos;113&apos;,
- u&apos;119&apos;,
- u&apos;12&apos;,
- u&apos;120&apos;,
- u&apos;126&apos;,
- u&apos;127&apos;,
- u&apos;128&apos;,
- u&apos;129&apos;,
- u&apos;13&apos;,
- u&apos;132&apos;,
- u&apos;133&apos;,
- u&apos;14&apos;,
- u&apos;140&apos;,
- u&apos;15&apos;,
- u&apos;150&apos;,
- u&apos;152&apos;,
- u&apos;16&apos;,
- u&apos;160&apos;,
- u&apos;17&apos;,
- u&apos;170&apos;,
- u&apos;175&apos;,
- u&apos;18&apos;,
- u&apos;180&apos;,
- u&apos;19&apos;,
- u&apos;1987&apos;,
- u&apos;1988&apos;,
- u&apos;1989&apos;,
- u&apos;199&apos;,
- u&apos;1990&apos;,
- u&apos;1991&apos;,
- u&apos;1992&apos;,
- u&apos;1993&apos;,
- u&apos;1993apr14&apos;,
- u&apos;1993apr15&apos;,
- u&apos;1993apr16&apos;,
- u&apos;1993apr18&apos;,
- u&apos;1993apr19&apos;,
- u&apos;1993apr20&apos;,
- u&apos;1993apr5&apos;,
- u&apos;1993apr6&apos;,
- u&apos;1d17&apos;,
- u&apos;1d20&apos;,
- u&apos;1st&apos;,
- u&apos;20&apos;,
- u&apos;200&apos;,
- u&apos;2000&apos;,
- u&apos;203&apos;,
- u&apos;21&apos;,
- u&apos;210&apos;,
- u&apos;22&apos;,
- u&apos;23&apos;,
- u&apos;230&apos;,
- u&apos;24&apos;,
- u&apos;240&apos;,
- u&apos;241&apos;,
- u&apos;25&apos;,
- u&apos;253&apos;,
- u&apos;256&apos;,
- u&apos;25mhz&apos;,
- u&apos;26&apos;,
- u&apos;27&apos;,
- u&apos;28&apos;,
- u&apos;286&apos;,
- u&apos;29&apos;,
- u&apos;2nd&apos;,
- u&apos;30&apos;,
- u&apos;300&apos;,
- u&apos;30602&apos;,
- u&apos;31&apos;,
- u&apos;32&apos;,
- u&apos;33&apos;,
- u&apos;34&apos;,
- u&apos;35&apos;,
- u&apos;36&apos;,
- u&apos;37&apos;,
- u&apos;38&apos;,
- u&apos;386&apos;,
- u&apos;39&apos;,
- u&apos;3rd&apos;,
- u&apos;40&apos;,
- u&apos;400&apos;,
- u&apos;403&apos;,
- u&apos;408&apos;,
- u&apos;41&apos;,
- u&apos;42&apos;,
- u&apos;43&apos;,
- u&apos;44&apos;,
- u&apos;45&apos;,
- u&apos;46&apos;,
- u&apos;47&apos;,
- u&apos;48&apos;,
- u&apos;486&apos;,
- u&apos;49&apos;,
- u&apos;4mb&apos;,
- u&apos;4th&apos;,
- u&apos;50&apos;,
- u&apos;500&apos;,
- u&apos;51&apos;,
- u&apos;512&apos;,
- u&apos;512k&apos;,
- u&apos;52&apos;,
- u&apos;53&apos;,
- u&apos;54&apos;,
- u&apos;542&apos;,
- u&apos;55&apos;,
- u&apos;56&apos;,
- u&apos;57&apos;,
- u&apos;58&apos;,
- u&apos;59&apos;,
- u&apos;5of5&apos;,
- u&apos;5th&apos;,
- u&apos;60&apos;,
- u&apos;600&apos;,
- u&apos;61&apos;,
- u&apos;610&apos;,
- u&apos;62&apos;,
- u&apos;63&apos;,
- u&apos;64&apos;,
- u&apos;65&apos;,
- u&apos;650&apos;,
- u&apos;66&apos;,
- u&apos;67&apos;,
- u&apos;68&apos;,
- u&apos;68030&apos;,
- u&apos;68040&apos;,
- u&apos;680x0&apos;,
- u&apos;69&apos;,
- u&apos;6th&apos;,
- u&apos;70&apos;,
- u&apos;700&apos;,
- u&apos;706&apos;,
- u&apos;71&apos;,
- u&apos;72&apos;,
- u&apos;73&apos;,
- u&apos;74&apos;,
- u&apos;7415&apos;,
- u&apos;75&apos;,
- u&apos;76&apos;,
- u&apos;77&apos;,
- u&apos;78&apos;,
- u&apos;79&apos;,
- u&apos;7th&apos;,
- u&apos;80&apos;,
- u&apos;800&apos;,
- u&apos;80ns&apos;,
- u&apos;81&apos;,
- u&apos;82&apos;,
- u&apos;83&apos;,
- u&apos;84&apos;,
- u&apos;85&apos;,
- u&apos;86&apos;,
- u&apos;87&apos;,
- u&apos;88&apos;,
- u&apos;89&apos;,
- u&apos;90&apos;,
- u&apos;900&apos;,
- u&apos;91&apos;,
- u&apos;92&apos;,
- u&apos;93&apos;,
- u&apos;94&apos;,
- u&apos;95&apos;,
- u&apos;950&apos;,
- u&apos;96&apos;,
- u&apos;97&apos;,
- u&apos;9760&apos;,
- u&apos;98&apos;,
- u&apos;99&apos;,
- u&apos;__&apos;,
- u&apos;___&apos;,
- u&apos;____&apos;,
- u&apos;aa888&apos;,
- u&apos;aaron&apos;,
- u&apos;ab&apos;,
- u&apos;abc&apos;,
- u&apos;ability&apos;,
- u&apos;able&apos;,
- u&apos;abo&apos;,
- u&apos;above&apos;,
- u&apos;abraham&apos;,
- u&apos;absence&apos;,
- u&apos;absolute&apos;,
- u&apos;absolutely&apos;,
- u&apos;absolutes&apos;,
- u&apos;ac&apos;,
- u&apos;academic&apos;,
- u&apos;acc&apos;,
- u&apos;accelerator&apos;,
- u&apos;accept&apos;,
- u&apos;acceptable&apos;,
- u&apos;accepted&apos;,
- u&apos;accepting&apos;,
- u&apos;access&apos;,
- u&apos;according&apos;,
- u&apos;account&apos;,
- u&apos;accounts&apos;,
- u&apos;accurate&apos;,
- u&apos;achieve&apos;,
- u&apos;achkar&apos;,
- u&apos;acknowledge&apos;,
- u&apos;acns&apos;,
- u&apos;acquired&apos;,
- u&apos;across&apos;,
- u&apos;acs&apos;,
- u&apos;acsu&apos;,
- u&apos;act&apos;,
- u&apos;action&apos;,
- u&apos;actions&apos;,
- u&apos;active&apos;,
- u&apos;acts&apos;,
- u&apos;actual&apos;,
- u&apos;actually&apos;,
- u&apos;ad&apos;,
- u&apos;adam&apos;,
- u&apos;adams&apos;,
- u&apos;adapter&apos;,
- u&apos;adb&apos;,
- u&apos;add&apos;,
- u&apos;added&apos;,
- u&apos;adding&apos;,
- u&apos;addition&apos;,
- u&apos;additional&apos;,
- u&apos;address&apos;,
- u&apos;addresses&apos;,
- u&apos;adirondack&apos;,
- u&apos;admissions&apos;,
- u&apos;admit&apos;,
- u&apos;adopt&apos;,
- u&apos;advance&apos;,
- u&apos;advanced&apos;,
- u&apos;advantage&apos;,
- u&apos;advice&apos;,
- u&apos;affected&apos;,
- u&apos;afford&apos;,
- u&apos;afraid&apos;,
- u&apos;africa&apos;,
- u&apos;after&apos;,
- u&apos;afternoon&apos;,
- u&apos;again&apos;,
- u&apos;against&apos;,
- u&apos;age&apos;,
- u&apos;agnostic&apos;,
- u&apos;ago&apos;,
- u&apos;agree&apos;,
- u&apos;agreed&apos;,
- u&apos;agreement&apos;,
- u&apos;ah&apos;,
- u&apos;ahead&apos;,
- u&apos;ahl&apos;,
- u&apos;ai&apos;,
- u&apos;aids&apos;,
- u&apos;air&apos;,
- u&apos;aisun3&apos;,
- u&apos;al&apos;,
- u&apos;alan&apos;,
- u&apos;alberta&apos;,
- u&apos;alchemy&apos;,
- u&apos;alexander&apos;,
- u&apos;alive&apos;,
- u&apos;allen&apos;,
- u&apos;allow&apos;,
- u&apos;allowed&apos;,
- u&apos;allows&apos;,
- u&apos;almost&apos;,
- u&apos;alone&apos;,
- u&apos;along&apos;,
- u&apos;alot&apos;,
- u&apos;alpha&apos;,
- u&apos;already&apos;,
- u&apos;also&apos;,
- u&apos;alt&apos;,
- u&apos;alternative&apos;,
- u&apos;although&apos;,
- u&apos;altogether&apos;,
- u&apos;alvin&apos;,
- u&apos;always&apos;,
- u&apos;am&apos;,
- u&apos;am2x&apos;,
- u&apos;amateur&apos;,
- u&apos;amazing&apos;,
- u&apos;ambiguous&apos;,
- u&apos;america&apos;,
- u&apos;american&apos;,
- u&apos;americans&apos;,
- u&apos;among&apos;,
- u&apos;amount&apos;,
- u&apos;amour&apos;,
- u&apos;analysis&apos;,
- u&apos;ancient&apos;,
- u&apos;anderson&apos;,
- u&apos;andersson&apos;,
- u&apos;andrew&apos;,
- u&apos;andreychuk&apos;,
- u&apos;andy&apos;,
- u&apos;angeles&apos;,
- u&apos;angels&apos;,
- u&apos;anger&apos;,
- u&apos;angry&apos;,
- u&apos;animals&apos;,
- u&apos;ann&apos;,
- u&apos;anna&apos;,
- u&apos;announce&apos;,
- u&apos;announced&apos;,
- u&apos;announcer&apos;,
- u&apos;announcers&apos;,
- u&apos;annoying&apos;,
- u&apos;another&apos;,
- u&apos;answer&apos;,
- u&apos;answered&apos;,
- u&apos;answering&apos;,
- u&apos;answers&apos;,
- u&apos;antonio&apos;,
- u&apos;anybody&apos;,
- u&apos;anymore&apos;,
- u&apos;anyone&apos;,
- u&apos;anything&apos;,
- u&apos;anytime&apos;,
- u&apos;anyway&apos;,
- u&apos;anyways&apos;,
- u&apos;anywhere&apos;,
- u&apos;apart&apos;,
- u&apos;apologize&apos;,
- u&apos;apostle&apos;,
- u&apos;apostles&apos;,
- u&apos;apparent&apos;,
- u&apos;apparently&apos;,
- u&apos;appear&apos;,
- u&apos;appeared&apos;,
- u&apos;appears&apos;,
- u&apos;apple&apos;,
- u&apos;applelink&apos;,
- u&apos;appletalk&apos;,
- u&apos;application&apos;,
- u&apos;applications&apos;,
- u&apos;applied&apos;,
- u&apos;applies&apos;,
- u&apos;apply&apos;,
- u&apos;appointed&apos;,
- u&apos;appreciate&apos;,
- u&apos;appreciated&apos;,
- u&apos;approach&apos;,
- u&apos;appropriate&apos;,
- u&apos;approved&apos;,
- u&apos;apr&apos;,
- u&apos;april&apos;,
- u&apos;aps&apos;,
- u&apos;aquinas&apos;,
- u&apos;arbor&apos;,
- u&apos;area&apos;,
- u&apos;areas&apos;,
- u&apos;aren&apos;,
- u&apos;arena&apos;,
- u&apos;argue&apos;,
- u&apos;arguing&apos;,
- u&apos;argument&apos;,
- u&apos;arguments&apos;,
- u&apos;army&apos;,
- u&apos;around&apos;,
- u&apos;arrogance&apos;,
- u&apos;arrogant&apos;,
- u&apos;art&apos;,
- u&apos;articles&apos;,
- u&apos;artificial&apos;,
- u&apos;arts&apos;,
- u&apos;ashley&apos;,
- u&apos;aside&apos;,
- u&apos;ask&apos;,
- u&apos;asked&apos;,
- u&apos;asking&apos;,
- u&apos;asks&apos;,
- u&apos;aspect&apos;,
- u&apos;aspects&apos;,
- u&apos;ass&apos;,
- u&apos;assertion&apos;,
- u&apos;assist&apos;,
- u&apos;assistant&apos;,
- u&apos;assists&apos;,
- u&apos;associate&apos;,
- u&apos;associated&apos;,
- u&apos;association&apos;,
- u&apos;assume&apos;,
- u&apos;assumed&apos;,
- u&apos;assuming&apos;,
- u&apos;assumption&apos;,
- u&apos;astray&apos;,
- u&apos;atheism&apos;,
- u&apos;atheist&apos;,
- u&apos;atheists&apos;,
- u&apos;athena&apos;,
- u&apos;athens&apos;,
- u&apos;athos&apos;,
- u&apos;atlanta&apos;,
- u&apos;att&apos;,
- u&apos;attack&apos;,
- u&apos;attempt&apos;,
- u&apos;attempted&apos;,
- u&apos;attempting&apos;,
- u&apos;attempts&apos;,
- u&apos;attendance&apos;,
- u&apos;attention&apos;,
- u&apos;atterlep&apos;,
- u&apos;attitude&apos;,
- u&apos;au&apos;,
- u&apos;audience&apos;,
- u&apos;austin&apos;,
- u&apos;australia&apos;,
- u&apos;author&apos;,
- u&apos;authorities&apos;,
- u&apos;authority&apos;,
- u&apos;authors&apos;,
- u&apos;auto&apos;,
- u&apos;available&apos;,
- u&apos;ave&apos;,
- u&apos;avenue&apos;,
- u&apos;average&apos;,
- u&apos;avoid&apos;,
- u&apos;awarded&apos;,
- u&apos;awards&apos;,
- u&apos;aware&apos;,
- u&apos;away&apos;,
- u&apos;awesome&apos;,
- u&apos;awful&apos;,
- u&apos;axelsson&apos;,
- u&apos;back&apos;,
- u&apos;background&apos;,
- u&apos;backup&apos;,
- u&apos;bad&apos;,
- u&apos;baker&apos;,
- u&apos;ball&apos;,
- u&apos;ballentine&apos;,
- u&apos;baltimore&apos;,
- u&apos;band&apos;,
- u&apos;baptism&apos;,
- u&apos;barrasso&apos;,
- u&apos;base&apos;,
- u&apos;baseball&apos;,
- u&apos;based&apos;,
- u&apos;basic&apos;,
- u&apos;basically&apos;,
- u&apos;basis&apos;,
- u&apos;basketball&apos;,
- u&apos;battery&apos;,
- u&apos;battle&apos;,
- u&apos;bay&apos;,
- u&apos;bbs&apos;,
- u&apos;bc&apos;,
- u&apos;bear&apos;,
- u&apos;bears&apos;,
- u&apos;beat&apos;,
- u&apos;beautiful&apos;,
- u&apos;became&apos;,
- u&apos;because&apos;,
- u&apos;become&apos;,
- u&apos;becomes&apos;,
- u&apos;becoming&apos;,
- u&apos;been&apos;,
- u&apos;before&apos;,
- u&apos;beg&apos;,
- u&apos;began&apos;,
- u&apos;begin&apos;,
- u&apos;beginning&apos;,
- u&apos;begins&apos;,
- u&apos;behalf&apos;,
- u&apos;behavior&apos;,
- u&apos;behaviour&apos;,
- u&apos;behind&apos;,
- u&apos;being&apos;,
- u&apos;beings&apos;,
- u&apos;belfour&apos;,
- u&apos;belief&apos;,
- u&apos;beliefs&apos;,
- u&apos;believe&apos;,
- u&apos;believed&apos;,
- u&apos;believers&apos;,
- u&apos;believes&apos;,
- u&apos;believing&apos;,
- u&apos;bell&apos;,
- u&apos;bellows&apos;,
- u&apos;belong&apos;,
- u&apos;below&apos;,
- u&apos;bench&apos;,
- u&apos;benefit&apos;,
- u&apos;beranek&apos;,
- u&apos;berkeley&apos;,
- u&apos;bernoulli&apos;,
- u&apos;beside&apos;,
- u&apos;besides&apos;,
- u&apos;best&apos;,
- u&apos;bet&apos;,
- u&apos;better&apos;,
- u&apos;between&apos;,
- u&apos;beyond&apos;,
- u&apos;bgsu&apos;,
- u&apos;bgu&apos;,
- u&apos;biased&apos;,
- u&apos;bible&apos;,
- u&apos;biblical&apos;,
- u&apos;big&apos;,
- u&apos;bigger&apos;,
- u&apos;biggest&apos;,
- u&apos;bill&apos;,
- u&apos;birth&apos;,
- u&apos;bishop&apos;,
- u&apos;bit&apos;,
- u&apos;bitnet&apos;,
- u&apos;bits&apos;,
- u&apos;black&apos;,
- u&apos;blackhawks&apos;,
- u&apos;blame&apos;,
- u&apos;bless&apos;,
- u&apos;blessed&apos;,
- u&apos;blind&apos;,
- u&apos;blindly&apos;,
- u&apos;block&apos;,
- u&apos;blood&apos;,
- u&apos;blow&apos;,
- u&apos;blue&apos;,
- u&apos;blues&apos;,
- u&apos;bnr&apos;,
- u&apos;board&apos;,
- u&apos;boarding&apos;,
- u&apos;boards&apos;,
- u&apos;bob&apos;,
- u&apos;bobby&apos;,
- u&apos;body&apos;,
- u&apos;book&apos;,
- u&apos;books&apos;,
- u&apos;bookstore&apos;,
- u&apos;boot&apos;,
- u&apos;born&apos;,
- u&apos;bos&apos;,
- u&apos;boss&apos;,
- u&apos;boston&apos;,
- u&apos;both&apos;,
- u&apos;bother&apos;,
- u&apos;bothers&apos;,
- u&apos;bottom&apos;,
- u&apos;bought&apos;,
- u&apos;boulder&apos;,
- u&apos;bound&apos;,
- u&apos;boundary&apos;,
- u&apos;bourque&apos;,
- u&apos;bowling&apos;,
- u&apos;box&apos;,
- u&apos;boxes&apos;,
- u&apos;boy&apos;,
- u&apos;brad&apos;,
- u&apos;bradley&apos;,
- u&apos;brain&apos;,
- u&apos;branch&apos;,
- u&apos;brand&apos;,
- u&apos;braves&apos;,
- u&apos;break&apos;,
- u&apos;breaker&apos;,
- u&apos;breaking&apos;,
- u&apos;brent&apos;,
- u&apos;breton&apos;,
- u&apos;bri&apos;,
- u&apos;brian&apos;,
- u&apos;brief&apos;,
- u&apos;brind&apos;,
- u&apos;bring&apos;,
- u&apos;brings&apos;,
- u&apos;british&apos;,
- u&apos;broadcast&apos;,
- u&apos;broke&apos;,
- u&apos;broken&apos;,
- u&apos;brother&apos;,
- u&apos;brothers&apos;,
- u&apos;brought&apos;,
- u&apos;brown&apos;,
- u&apos;bruce&apos;,
- u&apos;bruins&apos;,
- u&apos;brunswick&apos;,
- u&apos;bryan&apos;,
- u&apos;btw&apos;,
- u&apos;bu&apos;,
- u&apos;buddhism&apos;,
- u&apos;buddhist&apos;,
- u&apos;buf&apos;,
- u&apos;buffalo&apos;,
- u&apos;bug&apos;,
- u&apos;build&apos;,
- u&apos;building&apos;,
- u&apos;built&apos;,
- u&apos;bunch&apos;,
- u&apos;bure&apos;,
- u&apos;burnaby&apos;,
- u&apos;burned&apos;,
- u&apos;burns&apos;,
- u&apos;bus&apos;,
- u&apos;business&apos;,
- u&apos;butt&apos;,
- u&apos;button&apos;,
- u&apos;buy&apos;,
- u&apos;buying&apos;,
- u&apos;byler&apos;,
- u&apos;bytes&apos;,
- u&apos;c610&apos;,
- u&apos;c650&apos;,
- u&apos;ca&apos;,
- u&apos;cable&apos;,
- u&apos;cables&apos;,
- u&apos;cache&apos;,
- u&apos;cadkey&apos;,
- u&apos;cage&apos;,
- u&apos;cal&apos;,
- u&apos;calder&apos;,
- u&apos;calgary&apos;,
- u&apos;california&apos;,
- u&apos;call&apos;,
- u&apos;called&apos;,
- u&apos;calling&apos;,
- u&apos;calls&apos;,
- u&apos;calvin&apos;,
- u&apos;cam&apos;,
- u&apos;came&apos;,
- u&apos;camp&apos;,
- u&apos;campbell&apos;,
- u&apos;campus&apos;,
- u&apos;canada&apos;,
- u&apos;canadian&apos;,
- u&apos;canadians&apos;,
- u&apos;canadiens&apos;,
- u&apos;cannot&apos;,
- u&apos;canon&apos;,
- u&apos;canucks&apos;,
- u&apos;capability&apos;,
- u&apos;capable&apos;,
- u&apos;capacity&apos;,
- u&apos;cape&apos;,
- u&apos;capital&apos;,
- u&apos;capitals&apos;,
- u&apos;caps&apos;,
- u&apos;captain&apos;,
- u&apos;captains&apos;,
- u&apos;car&apos;,
- u&apos;caralv&apos;,
- u&apos;card&apos;,
- u&apos;cardinal&apos;,
- u&apos;cards&apos;,
- u&apos;care&apos;,
- u&apos;career&apos;,
- u&apos;careful&apos;,
- u&apos;carefully&apos;,
- u&apos;cares&apos;,
- u&apos;carleton&apos;,
- u&apos;carnegie&apos;,
- u&apos;carol&apos;,
- u&apos;carolina&apos;,
- u&apos;carpenter&apos;,
- u&apos;carried&apos;,
- u&apos;carry&apos;,
- u&apos;carrying&apos;,
- u&apos;carson&apos;,
- u&apos;cartridge&apos;,
- u&apos;case&apos;,
- u&apos;cases&apos;,
- u&apos;cassels&apos;,
- u&apos;cast&apos;,
- u&apos;category&apos;,
- u&apos;catholic&apos;,
- u&apos;catholics&apos;,
- u&apos;caught&apos;,
- u&apos;cause&apos;,
- u&apos;caused&apos;,
- u&apos;causes&apos;,
- u&apos;cb&apos;,
- u&apos;cbc&apos;,
- u&apos;cbnewsh&apos;,
- u&apos;cbnewsk&apos;,
- u&apos;cc&apos;,
- u&apos;ccu&apos;,
- u&apos;cd&apos;,
- u&apos;cd300&apos;,
- u&apos;cec1&apos;,
- u&apos;celebrate&apos;,
- u&apos;cent&apos;,
- u&apos;center&apos;,
- u&apos;central&apos;,
- u&apos;centre&apos;,
- u&apos;centris&apos;,
- u&apos;centuries&apos;,
- u&apos;century&apos;,
- u&apos;ceremonial&apos;,
- u&apos;ceremony&apos;,
- u&apos;certain&apos;,
- u&apos;certainly&apos;,
- u&apos;certainty&apos;,
- u&apos;cf&apos;,
- u&apos;cgsvax&apos;,
- u&apos;chain&apos;,
- u&apos;champions&apos;,
- u&apos;championship&apos;,
- u&apos;championships&apos;,
- u&apos;champs&apos;,
- u&apos;chance&apos;,
- u&apos;chances&apos;,
- u&apos;change&apos;,
- u&apos;changed&apos;,
- u&apos;changes&apos;,
- u&apos;changing&apos;,
- u&apos;channel&apos;,
- u&apos;chapter&apos;,
- u&apos;character&apos;,
- u&apos;charge&apos;,
- u&apos;charles&apos;,
- u&apos;charlie&apos;,
- u&apos;cheap&apos;,
- u&apos;cheaper&apos;,
- u&apos;check&apos;,
- u&apos;checked&apos;,
- u&apos;checking&apos;,
- u&apos;cheers&apos;,
- u&apos;chelios&apos;,
- u&apos;chem&apos;,
- u&apos;chemistry&apos;,
- u&apos;cherry&apos;,
- u&apos;chhabra&apos;,
- u&apos;chi&apos;,
- u&apos;chicago&apos;,
- u&apos;chief&apos;,
- u&apos;child&apos;,
- u&apos;children&apos;,
- u&apos;chip&apos;,
- u&apos;chips&apos;,
- u&apos;choice&apos;,
- u&apos;choices&apos;,
- u&apos;choose&apos;,
- u&apos;choosing&apos;,
- u&apos;chose&apos;,
- u&apos;chosen&apos;,
- u&apos;chris&apos;,
- u&apos;christ&apos;,
- u&apos;christian&apos;,
- u&apos;christianity&apos;,
- u&apos;christians&apos;,
- u&apos;christopher&apos;,
- u&apos;chuck&apos;,
- u&apos;church&apos;,
- u&apos;churches&apos;,
- u&apos;ciccarelli&apos;,
- u&apos;circle&apos;,
- u&apos;circumstances&apos;,
- u&apos;cis&apos;,
- u&apos;cited&apos;,
- u&apos;cities&apos;,
- u&apos;city&apos;,
- u&apos;civil&apos;,
- u&apos;claim&apos;,
- u&apos;claimed&apos;,
- u&apos;claiming&apos;,
- u&apos;claims&apos;,
- u&apos;claremont&apos;,
- u&apos;clark&apos;,
- u&apos;clarke&apos;,
- u&apos;clarkson&apos;,
- u&apos;class&apos;,
- u&apos;classic&apos;,
- u&apos;classy&apos;,
- u&apos;claude&apos;,
- u&apos;clean&apos;,
- u&apos;clear&apos;,
- u&apos;clearly&apos;,
- u&apos;clement&apos;,
- u&apos;cleveland&apos;,
- u&apos;clh&apos;,
- u&apos;clinton&apos;,
- u&apos;clock&apos;,
- u&apos;close&apos;,
- u&apos;closed&apos;,
- u&apos;closely&apos;,
- u&apos;closer&apos;,
- u&apos;closest&apos;,
- u&apos;club&apos;,
- u&apos;cmu&apos;,
- u&apos;co&apos;,
- u&apos;coach&apos;,
- u&apos;coaches&apos;,
- u&apos;coaching&apos;,
- u&apos;code&apos;,
- u&apos;coffey&apos;,
- u&apos;cohen&apos;,
- u&apos;col&apos;,
- u&apos;collection&apos;,
- u&apos;college&apos;,
- u&apos;collingridge&apos;,
- u&apos;color&apos;,
- u&apos;colorado&apos;,
- u&apos;colors&apos;,
- u&apos;colostate&apos;,
- u&apos;colour&apos;,
- u&apos;columbia&apos;,
- u&apos;com&apos;,
- u&apos;combination&apos;,
- u&apos;combined&apos;,
- u&apos;come&apos;,
- u&apos;comes&apos;,
- u&apos;comics&apos;,
- u&apos;coming&apos;,
- u&apos;command&apos;,
- u&apos;commandments&apos;,
- u&apos;commands&apos;,
- u&apos;comment&apos;,
- u&apos;commentary&apos;,
- u&apos;comments&apos;,
- u&apos;commitment&apos;,
- u&apos;committed&apos;,
- u&apos;common&apos;,
- u&apos;communication&apos;,
- u&apos;communications&apos;,
- u&apos;communion&apos;,
- u&apos;community&apos;,
- u&apos;comp&apos;,
- u&apos;companies&apos;,
- u&apos;company&apos;,
- u&apos;comparable&apos;,
- u&apos;comparative&apos;,
- u&apos;compare&apos;,
- u&apos;compared&apos;,
- u&apos;comparing&apos;,
- u&apos;comparison&apos;,
- u&apos;compatible&apos;,
- u&apos;complain&apos;,
- u&apos;complete&apos;,
- u&apos;completed&apos;,
- u&apos;completely&apos;,
- u&apos;complex&apos;,
- u&apos;complicated&apos;,
- u&apos;compuserve&apos;,
- u&apos;computer&apos;,
- u&apos;computers&apos;,
- u&apos;computing&apos;,
- u&apos;con&apos;,
- u&apos;concept&apos;,
- u&apos;conception&apos;,
- u&apos;concern&apos;,
- u&apos;concerned&apos;,
- u&apos;concerning&apos;,
- u&apos;conclude&apos;,
- u&apos;conclusion&apos;,
- u&apos;conclusions&apos;,
- u&apos;condemned&apos;,
- u&apos;conditions&apos;,
- u&apos;conditt&apos;,
- u&apos;conference&apos;,
- u&apos;configuration&apos;,
- u&apos;conflict&apos;,
- u&apos;confused&apos;,
- u&apos;confusing&apos;,
- u&apos;confusion&apos;,
- u&apos;congregation&apos;,
- u&apos;connect&apos;,
- u&apos;connected&apos;,
- u&apos;connection&apos;,
- u&apos;connector&apos;,
- u&apos;consecutive&apos;,
- u&apos;consensus&apos;,
- u&apos;conservative&apos;,
- u&apos;consider&apos;,
- u&apos;considered&apos;,
- u&apos;considering&apos;,
- u&apos;consistent&apos;,
- u&apos;consistently&apos;,
- u&apos;constant&apos;,
- u&apos;constantly&apos;,
- u&apos;consultant&apos;,
- u&apos;contact&apos;,
- u&apos;contained&apos;,
- u&apos;contains&apos;,
- u&apos;content&apos;,
- u&apos;context&apos;,
- u&apos;continent&apos;,
- u&apos;continue&apos;,
- u&apos;continued&apos;,
- u&apos;continues&apos;,
- u&apos;contract&apos;,
- u&apos;contradict&apos;,
- u&apos;contradiction&apos;,
- u&apos;contradictory&apos;,
- u&apos;contrary&apos;,
- u&apos;contribution&apos;,
- u&apos;control&apos;,
- u&apos;conversion&apos;,
- u&apos;convert&apos;,
- u&apos;converted&apos;,
- u&apos;convictions&apos;,
- u&apos;convince&apos;,
- u&apos;cook&apos;,
- u&apos;cool&apos;,
- u&apos;coos&apos;,
- u&apos;copies&apos;,
- u&apos;coprocessor&apos;,
- u&apos;copy&apos;,
- u&apos;cor&apos;,
- u&apos;cordially&apos;,
- u&apos;corinthians&apos;,
- u&apos;corner&apos;,
- u&apos;corp&apos;,
- u&apos;corporation&apos;,
- u&apos;correct&apos;,
- u&apos;correctly&apos;,
- u&apos;cost&apos;,
- u&apos;costs&apos;,
- u&apos;cote&apos;,
- u&apos;could&apos;,
- u&apos;couldn&apos;,
- u&apos;council&apos;,
- u&apos;count&apos;,
- u&apos;counted&apos;,
- u&apos;countries&apos;,
- u&apos;country&apos;,
- u&apos;couple&apos;,
- u&apos;course&apos;,
- u&apos;court&apos;,
- u&apos;courtnall&apos;,
- u&apos;cover&apos;,
- u&apos;coverage&apos;,
- u&apos;covered&apos;,
- u&apos;covington&apos;,
- u&apos;cpu&apos;,
- u&apos;craft&apos;,
- u&apos;craig&apos;,
- u&apos;crap&apos;,
- u&apos;crashes&apos;,
- u&apos;craven&apos;,
- u&apos;crazy&apos;,
- u&apos;create&apos;,
- u&apos;created&apos;,
- u&apos;creation&apos;,
- u&apos;creator&apos;,
- u&apos;credit&apos;,
- u&apos;critical&apos;,
- u&apos;criticism&apos;,
- u&apos;cross&apos;,
- u&apos;crowd&apos;,
- u&apos;cs&apos;,
- u&apos;csd&apos;,
- u&apos;cso&apos;,
- u&apos;cu&apos;,
- u&apos;cullen&apos;,
- u&apos;cult&apos;,
- u&apos;cultural&apos;,
- u&apos;culture&apos;,
- u&apos;cunixb&apos;,
- u&apos;cunixc&apos;,
- u&apos;cup&apos;,
- u&apos;cups&apos;,
- u&apos;curious&apos;,
- u&apos;current&apos;,
- u&apos;currently&apos;,
- u&apos;curtis&apos;,
- u&apos;cut&apos;,
- u&apos;cwis&apos;,
- u&apos;cwru&apos;,
- u&apos;czech&apos;,
- u&apos;d88&apos;,
- u&apos;dahlen&apos;,
- u&apos;daily&apos;,
- u&apos;dal&apos;,
- u&apos;dale&apos;,
- u&apos;dalhousie&apos;,
- u&apos;dallas&apos;,
- u&apos;damn&apos;,
- u&apos;damphousse&apos;,
- u&apos;dan&apos;,
- u&apos;danger&apos;,
- u&apos;dangerous&apos;,
- u&apos;daniel&apos;,
- u&apos;dare&apos;,
- u&apos;darius&apos;,
- u&apos;darius_lecointe&apos;,
- u&apos;darren&apos;,
- u&apos;dartmouth&apos;,
- u&apos;daryl&apos;,
- ...]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">()[</span><span class="mi">877</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>u&apos;connect&apos;</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -1707,7 +196,10 @@ preds = model.fit_predict(matrix.toarray())
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">simple_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;checkins.dat&#39;</span><span class="p">,</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">na_values</span><span class="o">=</span><span class="s1">&#39;                   &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> 
+<span class="c1">#, , header=1, , index_col=&#39;id&#39;, skipfooter=2</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -1718,11 +210,79 @@ preds = model.fit_predict(matrix.toarray())
 <div class="output">
 
 
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/opt/conda/lib/python3.5/site-packages/IPython/core/interactiveshell.py:2723: DtypeWarning: Columns (0) have mixed types. Specify dtype option on import or set low_memory=False.
+  interactivity=interactivity, compiler=compiler, result=result)
+</pre>
+</div>
+</div>
+
 <div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
 
-
-<div class="output_text output_subarea output_execute_result">
-<pre>u&apos;From: erik@cheshire.oxy.edu (Erik Adams)\nSubject: HELP!!  My Macintosh &quot;luggable&quot; has lines on its screen!\nOrganization: Occidental College, Los Angeles, CA 90041 USA.\nDistribution: comp\nLines: 20\n\nOkay, I don\&apos;t use it very much, but I would like for it to keep working\ncorrectly, at least as long as Apple continues to make System software\nthat will run on it, if slowly :-)\n\nHere is the problem:  When the screen is tilted too far back, vertical\nlines appear on the screen.  They are every 10 pixels or so, and seem\nto be affected somewhat by opening windows and pulling down menus.\nIt looks to a semi-technical person like there is a loose connection\nbetween the screen and the rest of the computer.\n\nI am open to suggestions that do not involve buying a new computer,\nor taking this one to the shop.  I would also like to not have\nto buy one of Larry Pina\&apos;s books.  I like Larry, but I\&apos;m not sure\nI feel strongly enough about the computer to buy a service manual\nfor it.\n\nOn a related note:  what does the monitor connector connect to?\n\nErik\n\n&apos;</pre>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>user_id</th>
+      <th>venue_id</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>created_at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>984222</td>
+      <td>15824</td>
+      <td>5222</td>
+      <td>38.895112</td>
+      <td>-77.036366</td>
+      <td>2012-04-21 17:43:47</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>984234</td>
+      <td>44652</td>
+      <td>5222</td>
+      <td>33.800745</td>
+      <td>-84.410520</td>
+      <td>2012-04-21 17:43:43</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>984291</td>
+      <td>105054</td>
+      <td>5222</td>
+      <td>45.523452</td>
+      <td>-122.676207</td>
+      <td>2012-04-21 17:39:22</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>984318</td>
+      <td>2146539</td>
+      <td>5222</td>
+      <td>40.764462</td>
+      <td>-111.904565</td>
+      <td>2012-04-21 17:35:46</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>984232</td>
+      <td>93870</td>
+      <td>380645</td>
+      <td>33.448377</td>
+      <td>-112.074037</td>
+      <td>2012-04-21 17:38:18</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </div>
 
 </div>
@@ -1730,27 +290,14 @@ preds = model.fit_predict(matrix.toarray())
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="KMeans">KMeans<a class="anchor-link" href="#KMeans">&#182;</a></h2>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%%</span><span class="k">time</span>
-from sklearn.cluster import KMeans
-
-model = KMeans(n_clusters=3, random_state=1)
-preds = model.fit_predict(matrix.toarray())
-print preds
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 396632</span>
+<span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -1763,9 +310,17 @@ print preds
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[0 0 2 ..., 0 2 1]
-CPU times: user 7.3 s, sys: 610 ms, total: 7.91 s
-Wall time: 4.29 s
+<pre>&lt;class &apos;pandas.core.frame.DataFrame&apos;&gt;
+Int64Index: 396634 entries, 1 to 1021964
+Data columns (total 6 columns):
+   id                    396634 non-null object
+ user_id                 396634 non-null float64
+ venue_id                396634 non-null float64
+     latitude            396634 non-null float64
+     longitude           396634 non-null float64
+     created_at          396634 non-null object
+dtypes: float64(4), object(2)
+memory usage: 21.2+ MB
 </pre>
 </div>
 </div>
@@ -1776,10 +331,11 @@ Wall time: 4.29 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="n">simple_dataset</span><span class="o">.</span><span class="n">target</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># with open(&#39;checkins.dat&#39;, &#39;r&#39;) as f: print(f.read(500))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;checkins.dat&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">700</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -1792,7 +348,14 @@ Wall time: 4.29 s
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[0 0 1 ..., 0 1 2]
+<pre>   id    | user_id | venue_id |     latitude      |     longitude     |     created_at      
+---------+---------+----------+-------------------+-------------------+---------------------
+  984301 | 2041916 |     5222 |                   |                   | 2012-04-21 17:39:01
+  984222 |   15824 |     5222 |        38.8951118 |       -77.0363658 | 2012-04-21 17:43:47
+  984315 | 1764391 |     5222 |                   |                   | 2012-04-21 17:37:18
+  984234 |   44652 |     5222 |         33.800745 |         -84.41052 | 2012-04-21 17:43:43
+  984249 | 2146840 |     5222 |                   |                   | 2012-04-21 17:42:58
+  984268 | 2146843 |     5222 |                   |   
 </pre>
 </div>
 </div>
@@ -1803,12 +366,11 @@ Wall time: 4.29 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
-<span class="n">mapped_preds</span> <span class="o">=</span> <span class="p">[</span><span class="n">mapping</span><span class="p">[</span><span class="n">pred</span><span class="p">]</span> <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">preds</span><span class="p">]</span>
-<span class="k">print</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">mapped_preds</span> <span class="o">!=</span> <span class="n">simple_dataset</span><span class="o">.</span><span class="n">target</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">simple_dataset</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span><span class="s1">&#39;longitude&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">X</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -1821,7 +383,13 @@ Wall time: 4.29 s
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0.0483961733258
+<pre>&lt;class &apos;pandas.core.frame.DataFrame&apos;&gt;
+Int64Index: 100000 entries, 386679 to 116162
+Data columns (total 2 columns):
+latitude     100000 non-null float64
+longitude    100000 non-null float64
+dtypes: float64(2)
+memory usage: 2.3 MB
 </pre>
 </div>
 </div>
@@ -1832,13 +400,11 @@ Wall time: 4.29 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">simple_dataset</span><span class="o">.</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ms</span> <span class="o">=</span> <span class="n">MeanShift</span><span class="p">(</span><span class="n">bandwidth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">%</span><span class="k">time</span> ms.fit(X)
 </pre></div>
 
 </div>
@@ -1851,32 +417,74 @@ Wall time: 4.29 s
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0.985360318588
+<pre>CPU times: user 3min 36s, sys: 260 ms, total: 3min 37s
+Wall time: 3min 37s
 </pre>
 </div>
 </div>
 
+<div class="output_area"><div class="prompt output_prompt">Out[48]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>MeanShift(bandwidth=0.1, bin_seeding=False, cluster_all=True, min_bin_freq=1,
+     n_jobs=1, seeds=None)</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#1041;&#1086;&#1083;&#1077;&#1077;-&#1089;&#1083;&#1086;&#1078;&#1085;&#1072;&#1103;-&#1074;&#1099;&#1073;&#1086;&#1088;&#1082;&#1072;">&#1041;&#1086;&#1083;&#1077;&#1077; &#1089;&#1083;&#1086;&#1078;&#1085;&#1072;&#1103; &#1074;&#1099;&#1073;&#1086;&#1088;&#1082;&#1072;<a class="anchor-link" href="#&#1041;&#1086;&#1083;&#1077;&#1077;-&#1089;&#1083;&#1086;&#1078;&#1085;&#1072;&#1103;-&#1074;&#1099;&#1073;&#1086;&#1088;&#1082;&#1072;">&#182;</a></h2>
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># labels = ms.labels_</span>
+<span class="c1"># cluster_centers = ms.cluster_centers_</span>
+<span class="c1"># labels_unique = np.unique(labels)</span>
+<span class="c1"># n_clusters_ = len(labels_unique)</span>
+<span class="c1"># print(&quot;number of estimated clusters : %d&quot; % n_clusters_)</span>
+<span class="c1"># print(cluster_centers)</span>
+<span class="n">cc</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">cluster_centers_</span>
+<span class="n">cc</span>
+</pre></div>
+
 </div>
 </div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[49]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[  40.71739277,  -73.98903854],
+       [  33.4492317 , -112.00175051],
+       [  41.87816072,  -87.62982257],
+       ..., 
+       [  10.473523  ,  -84.0167423 ],
+       [  31.8023831 ,  -97.0916692 ],
+       [  25.1497622 ,  -80.6826254 ]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[69]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">fetch_20newsgroups</span><span class="p">(</span>
-    <span class="n">subset</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> 
-    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;comp.sys.mac.hardware&#39;</span><span class="p">,</span> <span class="s1">&#39;comp.os.ms-windows.misc&#39;</span><span class="p">,</span> <span class="s1">&#39;comp.graphics&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cl</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">labels_</span>
 </pre></div>
 
 </div>
@@ -1886,15 +494,113 @@ Wall time: 4.29 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%%</span><span class="k">time</span>
-matrix = vectorizer.fit_transform(dataset.data)
-model = KMeans(n_clusters=3, random_state=42)
-preds = model.fit_predict(matrix.toarray())
-print preds
-print dataset.target
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">cl</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[70]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3552</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[56]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3552</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[138]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">of</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">read_csv</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">33.751277, -118.188740, (Los Angeles)</span>
+<span class="s1">25.867736, -80.324116, (Miami)</span>
+<span class="s1">51.503016, -0.075479, (London)</span>
+<span class="s1">52.378894, 4.885084, (Amsterdam)</span>
+<span class="s1">39.366487, 117.036146, (Beijing)</span>
+<span class="s1">-33.868457, 151.205134, (Sydney)</span>
+<span class="s1">&#39;&#39;&#39;</span><span class="p">),</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">))[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]]</span>
+<span class="n">of</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[138]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[(33.751277, -118.18874),
+ (25.867735999999997, -80.324116),
+ (51.503015999999995, -0.07547899999999999),
+ (52.378894, 4.885084),
+ (39.366487, 117.036146),
+ (-33.868457, 151.20513400000002)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">geopy.distance</span> <span class="k">import</span> <span class="n">vincenty</span>
+<span class="n">newport_ri</span> <span class="o">=</span> <span class="p">(</span><span class="mf">41.49008</span><span class="p">,</span> <span class="o">-</span><span class="mf">71.312796</span><span class="p">)</span>
+<span class="n">cleveland_oh</span> <span class="o">=</span> <span class="p">(</span><span class="mf">41.499498</span><span class="p">,</span> <span class="o">-</span><span class="mf">81.695391</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">vincenty</span><span class="p">(</span><span class="n">newport_ri</span><span class="p">,</span> <span class="n">cleveland_oh</span><span class="p">)</span><span class="o">.</span><span class="n">meters</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1907,10 +613,7 @@ print dataset.target
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[0 1 2 ..., 0 2 0]
-[2 1 1 ..., 2 0 2]
-CPU times: user 14 s, sys: 330 ms, total: 14.4 s
-Wall time: 7.83 s
+<pre>866455.4329011001
 </pre>
 </div>
 </div>
@@ -1921,12 +624,34 @@ Wall time: 7.83 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-<span class="n">mapped_preds</span> <span class="o">=</span> <span class="p">[</span><span class="n">mapping</span><span class="p">[</span><span class="n">pred</span><span class="p">]</span> <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">preds</span><span class="p">]</span>
-<span class="k">print</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">mapped_preds</span> <span class="o">!=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">target</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="k">def</span> <span class="nf">pd</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">handle</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">pl</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+<span class="n">pd</span><span class="p">(</span><span class="s1">&#39;ms.p&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[83]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># np.array(Counter(cl).items())</span>
+<span class="c1"># %%time</span>
+<span class="n">cl1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">cl</span><span class="p">)</span>
+<span class="o">%</span><span class="k">time</span> cl2 = np.array([[i,cl1.count(i)] for i in set(cl)])
 </pre></div>
 
 </div>
@@ -1939,7 +664,10 @@ Wall time: 7.83 s
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0.261266400456
+<pre>CPU times: user 0 ns, sys: 0 ns, total: 0 ns
+Wall time: 5.27 ms
+CPU times: user 10 s, sys: 50 ms, total: 10.1 s
+Wall time: 10.1 s
 </pre>
 </div>
 </div>
@@ -1950,11 +678,97 @@ Wall time: 7.83 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[94]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
-<span class="k">print</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cl3</span> <span class="o">=</span> <span class="n">cl2</span><span class="p">[</span><span class="n">cl2</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[107]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vincenty</span><span class="p">((</span><span class="n">of</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">of</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="n">of</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">of</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span><span class="o">.</span><span class="n">meters</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[107]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3741067.069343557</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[111]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cl4</span> <span class="o">=</span> <span class="n">cl3</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[137]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># cc1 = cc[cl4]</span>
+<span class="n">cc2</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="nb">tuple</span><span class="p">(</span><span class="n">cc</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cl4</span><span class="p">]</span>
+<span class="c1"># cc2</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[144]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># v = lambda o,c: vincenty(tuple(o), tuple(c)).meters </span>
+<span class="c1"># %time b = [(v(o, c), i) for o in of for i,c in enumerate(cc1)]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[(</span><span class="n">vincenty</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">meters</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">of</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">c</span> <span class="ow">in</span> <span class="n">cc2</span><span class="p">]</span>
+<span class="n">b</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[151]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># -33.8661460662 151.207082415</span>
+<span class="n">pf</span><span class="p">(</span><span class="s1">&#39;m3-w1&#39;</span><span class="p">,</span><span class="n">pp</span><span class="p">(</span><span class="n">cc</span><span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]]))</span>
 </pre></div>
 
 </div>
@@ -1967,7 +781,8 @@ Wall time: 7.83 s
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0.917279226713
+<pre>m3-w1=&quot;-33.8697913358 151.205630766&quot;
+
 </pre>
 </div>
 </div>
@@ -1976,29 +791,12 @@ Wall time: 7.83 s
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="SVD-+-KMeans">SVD + KMeans<a class="anchor-link" href="#SVD-+-KMeans">&#182;</a></h2>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[152]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%%</span><span class="k">time</span>
-from sklearn.decomposition import TruncatedSVD
-
-model = KMeans(n_clusters=3, random_state=42)
-svd = TruncatedSVD(n_components=1000, random_state=123)
-features = svd.fit_transform(matrix)
-preds = model.fit_predict(features)
-print preds
-print dataset.target
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pf</span><span class="p">(</span><span class="s1">&#39;m3-w1-1&#39;</span><span class="p">,</span><span class="n">pp</span><span class="p">(</span><span class="n">cc</span><span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]]))</span>
 </pre></div>
 
 </div>
@@ -2011,10 +809,8 @@ print dataset.target
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[0 2 1 ..., 0 1 0]
-[2 1 1 ..., 2 0 2]
-CPU times: user 9.61 s, sys: 290 ms, total: 9.9 s
-Wall time: 6.33 s
+<pre>m3-w1-1=&quot;52.3726819289 4.89260979211&quot;
+
 </pre>
 </div>
 </div>
@@ -2025,174 +821,16 @@ Wall time: 6.33 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
-<span class="n">mapped_preds</span> <span class="o">=</span> <span class="p">[</span><span class="n">mapping</span><span class="p">[</span><span class="n">pred</span><span class="p">]</span> <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">preds</span><span class="p">]</span>
-<span class="k">print</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">mapped_preds</span> <span class="o">!=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">target</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
 </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0.206503137479
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%%</span><span class="k">time</span>
-model = KMeans(n_clusters=3, random_state=42)
-svd = TruncatedSVD(n_components=200, random_state=123)
-features = svd.fit_transform(matrix)
-preds = model.fit_predict(features)
-print preds
-print dataset.target
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[2 0 1 ..., 2 1 2]
-[2 1 1 ..., 2 0 2]
-CPU times: user 2.14 s, sys: 50 ms, total: 2.19 s
-Wall time: 1.39 s
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
-<span class="k">def</span> <span class="nf">validate_with_mappings</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-    <span class="n">permutations</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">permutations</span><span class="p">:</span>
-        <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span> <span class="p">:</span> <span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span> <span class="n">c</span><span class="p">}</span>
-        <span class="n">mapped_preds</span> <span class="o">=</span> <span class="p">[</span><span class="n">mapping</span><span class="p">[</span><span class="n">pred</span><span class="p">]</span> <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">preds</span><span class="p">]</span>
-        <span class="k">print</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">mapped_preds</span> <span class="o">!=</span> <span class="n">target</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
-        
-<span class="n">validate_with_mappings</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0.900741585853
-0.674272675414
-0.705647461495
-0.893896177981
-0.205362236167
-0.620079863092
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="o">%%</span><span class="k">time</span>
-model = KMeans(n_clusters=3, random_state=42)
-svd = TruncatedSVD(n_components=200, random_state=321)
-features = svd.fit_transform(matrix)
-preds = model.fit_predict(features)
-print preds
-print dataset.target
-validate_with_mappings(preds, dataset.target, dataset)
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[2 1 0 ..., 2 0 2]
-[2 1 1 ..., 2 0 2]
-0.713063320023
-0.845407872219
-0.889332572732
-0.70051340559
-0.586423274387
-0.265259555048
-CPU times: user 1.82 s, sys: 50 ms, total: 1.87 s
-Wall time: 1.16 s
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#1048;&#1090;&#1086;&#1075;&#1080;">&#1048;&#1090;&#1086;&#1075;&#1080;<a class="anchor-link" href="#&#1048;&#1090;&#1086;&#1075;&#1080;">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Получили интерпретируемый результат на обеих выборках</li>
-<li>Реальность, однако, намного более жестока</li>
-<li>Попробовали использовать AgglomerativeClustering и KMeans</li>
-</ol>
-
-</div>
-</div>
 </div>
     </div>
   </div>

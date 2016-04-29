@@ -18,6 +18,7 @@ RUN pip install git+https://github.com/pybrain/pybrain.git
 RUN pip install blaze 
 RUN pip install boto 
 RUN conda install netCDF4
+RUN pip install geopy
 #- RUN $PIP2 install pyside
 
 USER root

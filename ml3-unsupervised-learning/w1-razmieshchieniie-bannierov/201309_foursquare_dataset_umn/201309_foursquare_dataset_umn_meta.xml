@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <identifier>201309_foursquare_dataset_umn</identifier>
+  <scanner>Internet Archive Python library 0.3.8</scanner>
+  <publicdate>2013-10-08 19:02:09</publicdate>
+  <title>UMN/Sarwat Foursquare Dataset</title>
+  <mediatype>data</mediatype>
+  <collection>archiveteam</collection>
+  <uploader>jscott@archive.org</uploader>
+  <addeddate>2013-10-08 19:02:09</addeddate>
+  <description>This data set contains 2153471 users, 1143092 venues, 1021970 check-ins, 27098490 social connections, and 2809581 ratings that users assigned to venues; all extracted from the Foursquare application through the public API. All users information have been anonymized, i.e., users geolocations are also anonymized. Each user is represented by an id, and GeoSpatial location. The same for venues. The data are contained in five files, users.dat, venues.dat, checkins.dat, socialgraph.dat, and ratings.dat. More details about the contents and use of all these files follows.
+
+&lt;b&gt;Content of Files&lt;/b&gt;
+&lt;ul&gt;&lt;li&gt;users.dat: consists of a set of users such that each user has a unique id and a geospatial location (latitude and longitude) that represents the user home town location.
+&lt;/li&gt;&lt;li&gt;venues.dat: consists of a set of venues (e.g., restaurants) such that each venue has a unique id and a geospatial location (lattude and longitude).
+&lt;/li&gt;&lt;li&gt;checkins.dat: marks the checkins (visits) of users at venues. Each check-in has a unique id as well as the user id and the venue id.
+&lt;/li&gt;&lt;li&gt;socialgraph.dat: contains the social graph edges (connections) that exist between users. Each social connection consits of two users (friends) represented by two unique ids (first_user_id and second_user_id).
+&lt;/li&gt;&lt;li&gt;ratings.dat: consists of implicit ratings that quantifies how much a user likes a specific venue.
+&lt;/li&gt;&lt;/ul&gt;&lt;b&gt;Credits&lt;/b&gt;
+
+The user must acknowledge the use of the data set in publications resulting from the use of the data set by citing the following papers:
+&lt;ul&gt;&lt;li&gt;&lt;i&gt;Mohamed Sarwat, Justin J. Levandoski, Ahmed Eldawy, and Mohamed F. Mokbel. LARS*: A Scalable and Efficient Location-Aware Recommender System. in IEEE Transactions on Knowledge and Data Engineering TKDE&lt;/i&gt;
+&lt;/li&gt;&lt;li&gt;&lt;i&gt;Justin J. Levandoski, Mohamed Sarwat, Ahmed Eldawy, and Mohamed F. Mokbel. LARS: A Location-Aware Recommender System. in ICDE 2012&lt;/i&gt;
+&lt;/li&gt;&lt;/ul&gt;</description>
+  <date>2013-09</date>
+  <year>2013</year>
+  <collection>web</collection>
+</metadata>

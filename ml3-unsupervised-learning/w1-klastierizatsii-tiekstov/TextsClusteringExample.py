@@ -102,14 +102,14 @@ get_ipython().run_cell_magic('time', '', 'from sklearn.cluster import KMeans\n\n
 print simple_dataset.target
 
 
-# In[174]:
+# In[17]:
 
 mapping = {2 : 1, 1: 2, 0: 0}
 mapped_preds = [mapping[pred] for pred in preds]
 print float(sum(mapped_preds != simple_dataset.target)) / len(simple_dataset.target)
 
 
-# In[175]:
+# In[18]:
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.cross_validation import cross_val_score
@@ -119,30 +119,26 @@ print cross_val_score(clf, matrix, simple_dataset.target).mean()
 
 # ## Более сложная выборка
 
-# In[176]:
+# In[19]:
 
 dataset = fetch_20newsgroups(
     subset='train', 
     categories=['comp.sys.mac.hardware', 'comp.os.ms-windows.misc', 'comp.graphics'])
 
 
-# In[177]:
+# In[20]:
 
-matrix = vectorizer.fit_transform(dataset.data)
-model = KMeans(n_clusters=3, random_state=42)
-preds = model.fit_predict(matrix.toarray())
-print preds
-print dataset.target
+get_ipython().run_cell_magic('time', '', 'matrix = vectorizer.fit_transform(dataset.data)\nmodel = KMeans(n_clusters=3, random_state=42)\npreds = model.fit_predict(matrix.toarray())\nprint preds\nprint dataset.target')
 
 
-# In[178]:
+# In[21]:
 
 mapping = {2 : 0, 1: 1, 0: 2}
 mapped_preds = [mapping[pred] for pred in preds]
 print float(sum(mapped_preds != dataset.target)) / len(dataset.target)
 
 
-# In[179]:
+# In[22]:
 
 clf = LogisticRegression()
 print cross_val_score(clf, matrix, dataset.target).mean()
@@ -150,36 +146,24 @@ print cross_val_score(clf, matrix, dataset.target).mean()
 
 # ## SVD + KMeans
 
-# In[180]:
+# In[23]:
 
-from sklearn.decomposition import TruncatedSVD
-
-model = KMeans(n_clusters=3, random_state=42)
-svd = TruncatedSVD(n_components=1000, random_state=123)
-features = svd.fit_transform(matrix)
-preds = model.fit_predict(features)
-print preds
-print dataset.target
+get_ipython().run_cell_magic('time', '', 'from sklearn.decomposition import TruncatedSVD\n\nmodel = KMeans(n_clusters=3, random_state=42)\nsvd = TruncatedSVD(n_components=1000, random_state=123)\nfeatures = svd.fit_transform(matrix)\npreds = model.fit_predict(features)\nprint preds\nprint dataset.target')
 
 
-# In[181]:
+# In[24]:
 
 mapping = {0 : 2, 1: 0, 2: 1}
 mapped_preds = [mapping[pred] for pred in preds]
 print float(sum(mapped_preds != dataset.target)) / len(dataset.target)
 
 
-# In[182]:
+# In[25]:
 
-model = KMeans(n_clusters=3, random_state=42)
-svd = TruncatedSVD(n_components=200, random_state=123)
-features = svd.fit_transform(matrix)
-preds = model.fit_predict(features)
-print preds
-print dataset.target
+get_ipython().run_cell_magic('time', '', 'model = KMeans(n_clusters=3, random_state=42)\nsvd = TruncatedSVD(n_components=200, random_state=123)\nfeatures = svd.fit_transform(matrix)\npreds = model.fit_predict(features)\nprint preds\nprint dataset.target')
 
 
-# In[183]:
+# In[26]:
 
 import itertools
 def validate_with_mappings(preds, target, dataset):
@@ -192,15 +176,9 @@ def validate_with_mappings(preds, target, dataset):
 validate_with_mappings(preds, dataset.target, dataset)
 
 
-# In[184]:
+# In[27]:
 
-model = KMeans(n_clusters=3, random_state=42)
-svd = TruncatedSVD(n_components=200, random_state=321)
-features = svd.fit_transform(matrix)
-preds = model.fit_predict(features)
-print preds
-print dataset.target
-validate_with_mappings(preds, dataset.target, dataset)
+get_ipython().run_cell_magic('time', '', 'model = KMeans(n_clusters=3, random_state=42)\nsvd = TruncatedSVD(n_components=200, random_state=321)\nfeatures = svd.fit_transform(matrix)\npreds = model.fit_predict(features)\nprint preds\nprint dataset.target\nvalidate_with_mappings(preds, dataset.target, dataset)')
 
 
 # ## Итоги
